@@ -4,7 +4,7 @@ using namespace std;
 int t,n;
 int ans;
 int card[20];
-//´Ó1µ½11±íÊ¾3µ½K,12±íÊ¾A,13±íÊ¾2¡£14±íÊ¾Ğ¡Íõ£¬15±íÊ¾´óÍõ
+//ä»1åˆ°11è¡¨ç¤º3åˆ°K,12è¡¨ç¤ºA,13è¡¨ç¤º2ã€‚14è¡¨ç¤ºå°ç‹ï¼Œ15è¡¨ç¤ºå¤§ç‹
 void shunzi(int l,int r,int cut)
 {
 	for (int i=l;i<=r;i++)
@@ -18,11 +18,11 @@ void dfs(int temp,int nn)
 	{ if (temp<ans)
 	  ans=temp;
       return;}	  
-	for (int i = 1; i <= 13; i++)//Ë³×Ó×ó±ß½ç
+	for (int i = 1; i <= 13; i++)//é¡ºå­å·¦è¾¹ç•Œ
 	{
 		if (card[i] == 0)
 			continue;
-		for (int j = i + 1; j <= 12; j++)//µ¥Ë³×ÓÓÒ±ß½ç 
+		for (int j = i + 1; j <= 12; j++)//å•é¡ºå­å³è¾¹ç•Œ 
 		{
 			if (!card[j])
 				break;
@@ -30,7 +30,7 @@ void dfs(int temp,int nn)
 				continue;
 			else shunzi(i, j, 1), dfs(temp + 1, nn - (j - i + 1)), shunzi(i, j, -1);
 		}
-		for (int j = i; j <= 12; j++)//Ë«Ë³×ÓÓÒ±ß½ç
+		for (int j = i; j <= 12; j++)//åŒé¡ºå­å³è¾¹ç•Œ
 		{
 			if (card[j] < 2)
 				break;
@@ -38,7 +38,7 @@ void dfs(int temp,int nn)
 				continue;
 			else shunzi(i, j, 2), dfs(temp + 1, (nn - (j - i + 1)) * 2), shunzi(i, j, -2);
 		}
-		for (int j = i; j <= 12; j++)//ÈıË³×ÓÓÒ±ß½ç
+		for (int j = i; j <= 12; j++)//ä¸‰é¡ºå­å³è¾¹ç•Œ
 		{
 			if (card[j] < 3)
 				break;
@@ -48,11 +48,11 @@ void dfs(int temp,int nn)
 		}
 	 }
 	bool flag=false;
-	for (int i = 1; i <= 13; i++)//Õ¨µ¯×ó±ß½ç
+	for (int i = 1; i <= 13; i++)//ç‚¸å¼¹å·¦è¾¹ç•Œ
 	{
 		if (card[i] == 4)
 		{
-			for (int j = 1; j <= 14; j++)//Õ¨µ¯´øË«ÅÆ
+			for (int j = 1; j <= 14; j++)//ç‚¸å¼¹å¸¦åŒç‰Œ
 				if (j == i)
 					continue;
 				else if (card[j] >= 2)
@@ -72,7 +72,7 @@ void dfs(int temp,int nn)
 					card[i] += 4;
 					card[j] += 2;
 				}
-			for (int j = 1; j <= 14; j++)//Õ¨µ¯´øÁ½Ö»µ¥ÅÆ
+			for (int j = 1; j <= 14; j++)//ç‚¸å¼¹å¸¦ä¸¤åªå•ç‰Œ
 				if (j == i)
 					continue;
 				else if (card[j] >= 1)
@@ -92,26 +92,26 @@ void dfs(int temp,int nn)
 					card[j] += 1;
 					card[i] += 4;
 				}
-			card[i] -= 4;//Õ¨µ¯²»´ø
+			card[i] -= 4;//ç‚¸å¼¹ä¸å¸¦
 			dfs(temp + 1, nn - 4);
 			card[i] += 4;
 		}
 	}
-	for (int i = 1; i <= 13; i++)//ÈıÖ»×ó±ß½ç
+	for (int i = 1; i <= 13; i++)//ä¸‰åªå·¦è¾¹ç•Œ
 	{
-		if (card[i] >= 3)//3´ø¼¸
+		if (card[i] >= 3)//3å¸¦å‡ 
 		{
-			for (int j = 1; j <= 13; j++)//3´ø1¶Ô 
+			for (int j = 1; j <= 13; j++)//3å¸¦1å¯¹ 
 				if (j == i)
 					continue;
 				else if (card[j] >= 2)
 					card[i] -= 3, card[j] -= 2,flag=true, dfs(temp + 1, nn - 5), card[i] += 3, card[j] += 2;
-			for (int j = 1; j <= 14; j++)//3´ø1
+			for (int j = 1; j <= 14; j++)//3å¸¦1
 				if (j == i)
 					continue;
 				else if (card[j] >= 1)
 					card[i] -= 3, card[j] -= 1, flag=true,dfs(temp + 1, nn - 4), card[i] += 3, card[j] += 1;
-			card[i] -= 3;//3²»´ø
+			card[i] -= 3;//3ä¸å¸¦
 			dfs(temp + 1, nn - 3);
 			card[i] += 3;
 		}
@@ -128,7 +128,7 @@ void dfs(int temp,int nn)
 		}
 		else return;
 	}
-	/*for (int i = 1; i <= 13; i++)//Ë«ÅÅ×ó±ß½ç
+	/*for (int i = 1; i <= 13; i++)//åŒæ’å·¦è¾¹ç•Œ
 	{
 		if (card[i] >= 2)
 		{
@@ -137,7 +137,7 @@ void dfs(int temp,int nn)
 			card[i] += 2;
 		}
 	}
-	for (int i = 1; i <= 13; i++)//µ¥ÅÆÓÒ±ß½ç
+	for (int i = 1; i <= 13; i++)//å•ç‰Œå³è¾¹ç•Œ
 	{
 		if (card[i] >= 1)
 		{
